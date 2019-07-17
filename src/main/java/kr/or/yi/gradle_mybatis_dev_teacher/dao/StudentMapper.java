@@ -1,8 +1,17 @@
 package kr.or.yi.gradle_mybatis_dev_teacher.dao;
 
+import java.util.List;
+
 import kr.or.yi.gradle_mybatis_dev_teacher.dto.Student;
 
 public interface StudentMapper {
-	Student selectStudentByNo(Student student);//typehandlerÀÌ¿ë
-	Student selectStudentByNoWithResultMap(Student student);//resultmapÀÌ¿ë
+	Student selectStudentByNo(Student student);//typehandlerï¿½Ì¿ï¿½
+	Student selectStudentByNoWithResultMap(Student student);//resultmapï¿½Ì¿ï¿½
+	List<Student> selectStudentByAll();
+	
+	int insertStudent(Student student);
+	int insertStudentAutoInc(Student student);
+
+	int updateStudent(Student student);
+	int deleteStudent(int id);
 }
