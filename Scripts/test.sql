@@ -20,6 +20,8 @@ delete from students;
 set foreign_key_checks = 1;
 
 desc students;
-
-
+select * from addresses where addr_id = 3;
+select stud_id, name, email, phone, a.addr_id, street, city, state, zip, country
+  from students s left join addresses a on s.addr_id = a.addr_id
+ where stud_id = 1;
 

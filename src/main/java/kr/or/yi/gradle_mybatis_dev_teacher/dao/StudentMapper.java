@@ -10,6 +10,8 @@ public interface StudentMapper {
 	Student selectStudentByNoWithResultMap(Student student);//resultmap�̿�
 	List<Student> selectStudentByAll();
 	
+	Student selectStudentByNoResultMapExtends(Student student);
+	
 	List<Map<String, Object>> selectStudentMapByAll();
 	
 	
