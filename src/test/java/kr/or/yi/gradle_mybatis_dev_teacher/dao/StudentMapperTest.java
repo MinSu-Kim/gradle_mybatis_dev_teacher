@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -125,4 +127,17 @@ public class StudentMapperTest extends AbstractTest {
         test03SelectStudentByAll();
     }
 
+    @Test
+	public void test07selectStudentMapByAll() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+				
+		List<Map<String,Object>> list = stdDao.selectStudentMapByAll();
+		Assert.assertNotNull(list);
+		
+		for(Map<String,Object> e : list) {
+			for(Entry<String, Object> ee: e.entrySet()) {
+				log.debug(String.format("key(%s) -> value(%s)", ee.getKey(), ee.getValue()));
+			}
+		}
+	}
 }
