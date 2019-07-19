@@ -57,6 +57,11 @@ create table mybatis_dev.course_enrollment(
   constraint fk_enrollment_course foreign key (course_id) references mybatis_dev.courses (course_id)
 );
 
+-- gender column 추가
+alter table students add gender tinyint unsigned; 
+
+
+
 -- 계정 추가
 grant all privileges 
 on mybatis_dev.* 

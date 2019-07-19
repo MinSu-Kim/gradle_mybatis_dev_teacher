@@ -17,6 +17,7 @@ public interface StudentMapper {
 	
 	int insertStudent(Student student);
 	int insertStudentAutoInc(Student student);
+	int insertStudentEnum(Student student);
 
 	int updateStudent(Student student);
 	int deleteStudent(int id);

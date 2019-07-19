@@ -39,4 +39,6 @@ alter table students add gender tinyint unsigned;
 select * from students;
 desc students;
 
+show tables;
+
 

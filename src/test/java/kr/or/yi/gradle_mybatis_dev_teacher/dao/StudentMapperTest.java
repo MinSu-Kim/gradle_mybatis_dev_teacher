@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import kr.or.yi.gradle_mybatis_dev_teacher.AbstractTest;
+import kr.or.yi.gradle_mybatis_dev_teacher.dto.Gender;
 import kr.or.yi.gradle_mybatis_dev_teacher.dto.PhoneNumber;
 import kr.or.yi.gradle_mybatis_dev_teacher.dto.Student;
 
@@ -151,6 +152,37 @@ public class StudentMapperTest extends AbstractTest {
         Assert.assertNotNull(searchStudent);
         
         log.debug(searchStudent.toString());
+    }
+    
+    @Test
+    public void test09InsertStudentEnum() {
+        Calendar newDate = GregorianCalendar.getInstance();
+        newDate.set(1990, 2, 28);
+        
+        Student student = new Student();
+        student.setStudId(3);
+        student.setName("홍길동남");
+        student.setEmail("lee@test.co.kr");
+        student.setPhone(new PhoneNumber("010-1234-1234"));
+        student.setDob(newDate.getTime());
+        student.setGender(Gender.FEMALE);
+        
+        int res = stdDao.insertStudentEnum(student);
+        Assert.assertEquals(1, res);
+        
+        Student selStd = stdDao.selectStudentByNo(student);
+        log.debug(selStd.toString());
+        
+        student.setStudId(10);
+        student.setName("홍길동여");
+        student.setGender(Gender.MALE);
+        stdDao.insertStudentEnum(student);
+        
+        selStd = stdDao.selectStudentByNo(student);
+        log.debug(selStd.toString());
+        
+        stdDao.deleteStudent(3);
+        stdDao.deleteStudent(10);
     }
 }
 
