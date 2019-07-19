@@ -1,7 +1,5 @@
 package kr.or.yi.gradle_mybatis_dev_teacher.dao;
 
-import static org.junit.Assert.assertEquals;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -115,7 +113,7 @@ public class UserPicMapperTest extends AbstractTest {
 		int res = picDao.deleteUserPic(userPic);
 		Assert.assertEquals(1, res);
 		
-		//deletePicsFolders();
+		deletePicsFolders();
 	}
 
 	private void deletePicsFolders() {
