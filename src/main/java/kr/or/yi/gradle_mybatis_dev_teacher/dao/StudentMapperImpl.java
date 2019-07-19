@@ -91,4 +91,11 @@ public class StudentMapperImpl implements StudentMapper {
 		}
 	}
 
+	@Override
+	public Student selectStudentByMap(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
+			return sqlSession.selectOne(namespace + ".selectStudentByMap", map);
+		}
+	}
+
 }

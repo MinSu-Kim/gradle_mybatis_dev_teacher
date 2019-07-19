@@ -83,6 +83,20 @@
 		  <include refid="whereStmt"/>
 	</select>
 	
+	<sql id="whereNameAndEmail">
+		<where>
+			<if test="name != null">
+				name = #{name}
+			</if>
+			<if test="email != null">
+				and email = #{email}
+			</if>
+		</where>
+	</sql>
+	<select id="selectStudentByMap" parameterType="map" resultType="Student">
+		<include refid="selectSql"/>
+		<include refid="whereNameAndEmail"/>
+	</select>
 </mapper>
 
 
