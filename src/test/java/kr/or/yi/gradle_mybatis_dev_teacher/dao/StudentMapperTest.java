@@ -211,6 +211,19 @@ public class StudentMapperTest extends AbstractTest {
         Assert.assertNotNull(std);
     }
     
+    
+    @Test
+    public void test12selectStudentForMap() {
+        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+        
+        Map<Integer, String> result = stdDao.selectStudentForMap();
+        Assert.assertNotNull(result);
+        
+        for(Entry<Integer, String> e : result.entrySet()) {
+        	log.debug(String.format("%d -> %s", e.getKey(), e.getValue()));
+        }
+    }
+        
 }
 
 

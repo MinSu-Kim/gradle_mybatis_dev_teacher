@@ -44,4 +44,5 @@ show tables;
 select * from user_pics;
 
 desc user_pics;
-
+select addr_id, street, city, state, zip, country 
+		  from addresses;

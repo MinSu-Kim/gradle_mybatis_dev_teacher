@@ -11,11 +11,14 @@ public interface StudentMapper {
 	List<Student> selectStudentByAll();
 	
 	Student selectStudentByNoResultMapExtends(Student student);
-	
 	List<Map<String, Object>> selectStudentMapByAll();
 	
 	//매개변수를 hashmap로 전달(여러개 입력파라미터전달방법)
 	Student selectStudentByMap(Map<String, String> map);
+	
+	//ResultSet 처리방식의 재정의
+	Map<Integer, String> selectStudentForMap();
+	
 	
 	int insertStudent(Student student);
 	int insertStudentAutoInc(Student student);

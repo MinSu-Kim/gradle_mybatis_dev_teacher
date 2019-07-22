@@ -11,4 +11,8 @@
         <result property="country" column="country"/>
 	</resultMap>
 	
+	<select id="selectAddressByAll" resultMap="resultAddress" >
+		select addr_id, street, city, state, zip, country 
+		  from addresses
+	</select>
 </mapper>
