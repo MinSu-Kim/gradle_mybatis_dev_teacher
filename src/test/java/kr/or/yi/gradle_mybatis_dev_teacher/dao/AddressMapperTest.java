@@ -13,7 +13,7 @@ import kr.or.yi.gradle_mybatis_dev_teacher.dto.Address;
 
 public class AddressMapperTest extends AbstractTest {
 	private static AddressMapper addressDao;
-	
+
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		addressDao = new AddressMapperImpl();
@@ -25,19 +25,20 @@ public class AddressMapperTest extends AbstractTest {
 	}
 
 	@Test
-	   public void test01selectAddressByAll() {
-	      RowBounds rowBounds = new RowBounds(0, 2);
-	      List<Address> lists = addressDao.selectAddressByAll(rowBounds);
-	      Assert.assertNotNull(lists);
+	public void test01selectAddressByAll() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 
-	   }
+		RowBounds rowBounds = new RowBounds(0, 2);
+		List<Address> lists = addressDao.selectAddressByAll(rowBounds);
+		Assert.assertNotNull(lists);
 
-	   @Test
-	   public void test02selectAddressByAll() {
-	      RowBounds rowBounds = new RowBounds(2, 2);
-	      List<Address> lists = addressDao.selectAddressByAll(rowBounds);
-	      Assert.assertNotNull(lists);
-	   }
+	}
 
+	@Test
+	public void test02selectAddressByAll() {
+		RowBounds rowBounds = new RowBounds(2, 2);
+		List<Address> lists = addressDao.selectAddressByAll(rowBounds);
+		Assert.assertNotNull(lists);
+	}
 
 }
