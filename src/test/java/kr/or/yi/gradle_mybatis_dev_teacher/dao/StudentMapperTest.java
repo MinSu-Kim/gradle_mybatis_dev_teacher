@@ -224,6 +224,34 @@ public class StudentMapperTest extends AbstractTest {
         }
     }
         
+    @Test
+    public void test13UpdateStudentForSet(){
+        log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+        
+        Student student = new Student();
+        student.setStudId(1);
+        student.setName("Timothy");
+        int result = stdDao.updateStudentForSet(student);
+        Assert.assertSame(1, result);
+        
+        
+        student.setEmail("test@test.co.kr");
+        student.setPhone(new PhoneNumber("987-654-3211"));
+        result = stdDao.updateStudentForSet(student);
+        Assert.assertSame(1, result);
+        
+        student.setDob(new Date());
+        result = stdDao.updateStudentForSet(student);
+        Assert.assertSame(1, result);
+        
+     
+        student.setEmail("timothy@gmail.com");
+        student.setPhone(new PhoneNumber("123-123-1234"));
+        student.setDob(new GregorianCalendar(1988, 04, 25).getTime());
+        result = stdDao.updateStudentForSet(student);
+        Assert.assertSame(1, result);
+        
+    }
 }
 
 

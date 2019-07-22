@@ -45,4 +45,36 @@
         </choose>
 		 
 	</select>
+	
+	<select id="selectCoursesByTrim" parameterType="map" resultMap="resultCourse">
+		select course_id, name, description, start_date, end_date
+		  from courses
+		  
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+            <!-- where 자동 추가 -->
+            <if test="tutorId != null"> 
+                TUTOR_ID=#{tutorId}
+            </if>
+            <!-- 만약 where tutor_id=1 이 추가 된 경우 where 삭제 -->
+            <if test="courseName != null">
+                AND name like #{courseName}
+            </if>
+        </trim>
+		  	
+	</select>
+	
+	<select id="selectCoursesByForEach" parameterType="map" resultMap="resultCourse">
+		select course_id, name, description, start_date, end_date
+		  from courses
+		  
+		<if test="tutorIds != null">
+            <where>
+                tutor_id IN
+                <foreach item="tutorId" collection="tutorIds" index="index"
+                    open="(" close=")" separator=",">
+                    #{tutorId}
+                </foreach>
+            </where>
+        </if>
+	</select>
 </mapper>

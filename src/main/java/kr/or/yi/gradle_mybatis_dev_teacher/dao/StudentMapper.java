@@ -25,5 +25,9 @@ public interface StudentMapper {
 	int insertStudentEnum(Student student);
 
 	int updateStudent(Student student);
+	
+	//동적SQL set
+	int updateStudentForSet(Student student);
+	
 	int deleteStudent(int id);
 }

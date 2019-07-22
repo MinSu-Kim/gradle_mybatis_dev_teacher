@@ -118,4 +118,13 @@ public class StudentMapperImpl implements StudentMapper {
 		}
 	}
 
+	@Override
+	public int updateStudentForSet(Student student) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
+			int res = sqlSession.insert(namespace + ".updateStudentForSet", student);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
 }

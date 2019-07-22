@@ -1,5 +1,6 @@
 package kr.or.yi.gradle_mybatis_dev_teacher.dao;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -9,11 +10,14 @@ import java.util.Map;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import kr.or.yi.gradle_mybatis_dev_teacher.AbstractTest;
 import kr.or.yi.gradle_mybatis_dev_teacher.dto.Course;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CourseMapperTest extends AbstractTest {
 	private static CourseMapper courseDao;
 
@@ -28,7 +32,7 @@ public class CourseMapperTest extends AbstractTest {
 	}
 
 	@Test
-	public void testSelectCoursesByCondition() {
+	public void test01SelectCoursesByCondition() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		
 		Map<String, Object> map = new HashMap<>();
@@ -73,6 +77,41 @@ public class CourseMapperTest extends AbstractTest {
 		
 		Assert.assertNotNull(list);
 	}
+
+	//selectCoursesByTrim
+	@Test
+	public void test03selectCoursesByTrim() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		
+		Map<String, Object> map = new HashMap<>();
+		//조건이 하나도 만족하지 않을 경우 otherwise 오늘날짜이후 시작되는 과정 검색
+		List<Course> list = courseDao.selectCoursesByTrim(map);
+		
+		//courseId = 1
+		map.put("tutorId", 1);
+		list = courseDao.selectCoursesByTrim(map);
+		
+		//courseName = "%java%"
+		map.put("courseName", "%java%");
+		list = courseDao.selectCoursesByTrim(map);
+		
+		map.clear();
+		map.put("courseName", "%java%");
+		Assert.assertNotNull(list);
+	}
+	
+	@Test
+    public void test04SelectCoursesForeachByTutors() {
+        List<Integer> tutorIds = new ArrayList<Integer>();
+        tutorIds.add(1);
+        tutorIds.add(2);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tutorIds", tutorIds);
+        
+        List<Course> courses = courseDao.selectCoursesByForEach(map);
+        Assert.assertNotNull(courses);
+    }
 
 }
 

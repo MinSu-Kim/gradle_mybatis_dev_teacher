@@ -65,7 +65,19 @@
 	</insert>
 	
 	<update id="updateStudent" parameterType="Student">
-		update students set name=#{name}, email=#{email},phone=#{phone}, dob=#{dob}
+		update students 
+		set name=#{name}, email=#{email},phone=#{phone}, dob=#{dob}
+        where stud_id=#{studId}
+	</update>
+	
+	<update id="updateStudentForSet" parameterType="Student">
+		update students 
+		<set>
+            <if test="name != null">name=#{name},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="dob != null">dob=#{dob},</if>
+        </set>
         where stud_id=#{studId}
 	</update>
 	
