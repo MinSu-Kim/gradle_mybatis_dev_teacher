@@ -2,6 +2,7 @@ package kr.or.yi.gradle_mybatis_dev_teacher.dao;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -111,6 +112,20 @@ public class CourseMapperTest extends AbstractTest {
         
         List<Course> courses = courseDao.selectCoursesByForEach(map);
         Assert.assertNotNull(courses);
+    }
+	
+	@Test
+    public void test04insertCourses() {
+        List<Course> tutors = new ArrayList<Course>();
+        tutors.add(new Course(4, "mysql", "database", new Date(), new Date(), 3));
+        tutors.add(new Course(5, "mssql", "database", new Date(), new Date(), 3));
+        tutors.add(new Course(6, "mariaDb", "database", new Date(), new Date(), 4));
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("tutors", tutors);
+        
+        int res = courseDao.insertCourses(map);
+        Assert.assertEquals(3, res);
     }
 
 }

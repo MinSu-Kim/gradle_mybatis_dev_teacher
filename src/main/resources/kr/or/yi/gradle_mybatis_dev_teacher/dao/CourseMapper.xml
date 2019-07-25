@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.yi.gradle_mybatis_dev_teacher.dao.CourseMapper">
-	
+<mapper
+	namespace="kr.or.yi.gradle_mybatis_dev_teacher.dao.CourseMapper">
+
 	<resultMap type="Course" id="resultCourse">
-		<id     column= "course_id"  property="courseId"/>
-		<result column="name"        property="name"/>
-		<result column="description" property="description"/>
-		<result column="start_date"  property="startDate"/>
-		<result column="end_date"    property="endDate"/>
+		<id column="course_id" property="courseId" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
 	</resultMap>
-	
-	<select id="selectCoursesByCondition" parameterType="Course" resultMap="resultCourse">
+
+	<select id="selectCoursesByCondition" parameterType="Course"
+		resultMap="resultCourse">
 		select course_id, name, description, start_date, end_date
-		  from courses
+		from courses
 		<where>
 			<if test="courseId != null">
 				and course_id = #{courseId}
@@ -28,53 +30,64 @@
 			</if>
 		</where>
 	</select>
-	
-	<select id="selectCoursesByChoose" parameterType="Course" resultMap="resultCourse">
+
+	<select id="selectCoursesByChoose" parameterType="Course"
+		resultMap="resultCourse">
 		select course_id, name, description, start_date, end_date
-		  from courses
+		from courses
 		<choose>
-            <when test="searchBy=='Tutor'"> <!--  map.get('searchBy')== 'Tutor' 같으면 -->
-                WHERE TUTOR_ID=#{tutorId}   <!--  map.get(tutorId) -->
-            </when>
-            <when test="searchBy=='CourseName'"> <!--  map.get('searchBy') = 'CourseName' -->
-                WHERE name like #{courseName}    <!--  map.get('courseName') -->
-            </when>
-            <otherwise>                      <!--  map에 해당하는 키값이 존재하지 않을 경우 기본 검색 -->
-                WHERE end_date &gt;=now()
-            </otherwise>
-        </choose>
-		 
+			<when test="searchBy=='Tutor'"> <!-- map.get('searchBy')== 'Tutor' 같으면 -->
+				WHERE TUTOR_ID=#{tutorId}   <!-- map.get(tutorId) -->
+			</when>
+			<when test="searchBy=='CourseName'"> <!-- map.get('searchBy') = 'CourseName' -->
+				WHERE name like #{courseName}    <!-- map.get('courseName') -->
+			</when>
+			<otherwise>                      <!-- map에 해당하는 키값이 존재하지 않을 경우 기본 검색 -->
+				WHERE end_date &gt;=now()
+			</otherwise>
+		</choose>
+
 	</select>
-	
-	<select id="selectCoursesByTrim" parameterType="map" resultMap="resultCourse">
+
+	<select id="selectCoursesByTrim" parameterType="map"
+		resultMap="resultCourse">
 		select course_id, name, description, start_date, end_date
-		  from courses
-		  
+		from courses
+
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-            <!-- where 자동 추가 -->
-            <if test="tutorId != null"> 
-                TUTOR_ID=#{tutorId}
-            </if>
-            <!-- 만약 where tutor_id=1 이 추가 된 경우 where 삭제 -->
-            <if test="courseName != null">
-                AND name like #{courseName}
-            </if>
-        </trim>
-		  	
+			<!-- where 자동 추가 -->
+			<if test="tutorId != null">
+				TUTOR_ID=#{tutorId}
+			</if>
+			<!-- 만약 where tutor_id=1 이 추가 된 경우 where 삭제 -->
+			<if test="courseName != null">
+				AND name like #{courseName}
+			</if>
+		</trim>
+
 	</select>
-	
-	<select id="selectCoursesByForEach" parameterType="map" resultMap="resultCourse">
+
+	<select id="selectCoursesByForEach" parameterType="map"
+		resultMap="resultCourse">
 		select course_id, name, description, start_date, end_date
-		  from courses
-		  
+		from courses
+
 		<if test="tutorIds != null">
-            <where>
-                tutor_id IN
-                <foreach item="tutorId" collection="tutorIds" index="index"
-                    open="(" close=")" separator=",">
-                    #{tutorId}
-                </foreach>
-            </where>
-        </if>
+			<where>
+				tutor_id IN
+				<foreach item="tutorId" collection="tutorIds" index="index"
+					open="(" close=")" separator=",">
+					#{tutorId}
+				</foreach>
+			</where>
+		</if>
 	</select>
+
+	<insert id="insertCourses" parameterType="map">
+		INSERT INTO courses (name, description, start_date, end_date, tutor_id)
+		values 
+		<foreach item="item" collection="tutors" separator=" ," index="index">
+			(#{item.name}, #{item.description}, #{item.startDate}, #{item.endDate}, #{item.tutorId})
+		</foreach>
+	</insert>
 </mapper>

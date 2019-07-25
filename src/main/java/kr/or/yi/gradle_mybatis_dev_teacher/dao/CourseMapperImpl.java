@@ -39,4 +39,13 @@ public class CourseMapperImpl implements CourseMapper {
 		}
 	}
 
+	@Override
+	public int insertCourses(Map<String, Object> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession()){
+			int res = sqlSession.insert(namespace + ".insertCourses", map);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
 }
